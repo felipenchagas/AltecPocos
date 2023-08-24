@@ -1,0 +1,14 @@
+User-agent: *
+Allow: 
+User-agent: Googlebot
+Allow: 
+User-agent: Googlebot-Image
+Allow: 
+User-agent: Mediapartners-Google
+Allow: 
+User-agent: Adsbot-Google
+Allow: 
+
+Sitemap: https://www.altecpocos.com.br/sitemap.xml
+Sitemap: https://www.altecpocos.com.br/sitemap-mg.xml
+Sitemap: https://www.altecpocos.com.br/sitemap-jaboticatubas.xml
