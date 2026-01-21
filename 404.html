@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Offline</title>
+
+  <style>
+    :root{
+      --bg1:#070812;
+      --bg2:#0b1230;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.10);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --stroke: rgba(255,255,255,.16);
+      --glow: rgba(120, 210, 255, .45);
+      --glow2: rgba(220, 120, 255, .35);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--txt);
+      background:
+        radial-gradient(1200px 700px at 15% 20%, rgba(120,210,255,.18), transparent 60%),
+        radial-gradient(1000px 650px at 80% 30%, rgba(220,120,255,.14), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    /* grid animada */
+    .grid{
+      position:fixed; inset:-40px;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(600px 420px at 50% 40%, black 55%, transparent 100%);
+      opacity:.45;
+      transform: perspective(900px) rotateX(58deg) translateY(120px);
+      animation: gridMove 14s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes gridMove{
+      from{ background-position: 0 0, 0 0; }
+      to{ background-position: 0 360px, 0 360px; }
+    }
+
+    /* partículas */
+    .particles{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.75;
+      filter: drop-shadow(0 0 18px rgba(120,210,255,.18));
+    }
+    .p{
+      position:absolute;
+      width: 6px; height: 6px;
+      border-radius:50%;
+      background: rgba(255,255,255,.85);
+      animation: floaty 10s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0) translateX(0) scale(1); opacity:.55; }
+      50%{ transform: translateY(-40px) translateX(18px) scale(1.25); opacity:1; }
+    }
+
+    .wrap{
+      position:relative;
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding: 28px 18px;
+    }
+
+    .card{
+      width:min(860px, 100%);
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow:
+        0 25px 80px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,255,255,.06) inset;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .shine{
+      position:absolute; inset:-2px;
+      background: radial-gradient(420px 240px at 20% 10%, rgba(120,210,255,.22), transparent 60%),
+                  radial-gradient(520px 280px at 80% 20%, rgba(220,120,255,.18), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing:.2px;
+      backdrop-filter: blur(8px);
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: rgba(255,110,140,.95);
+      box-shadow: 0 0 0 6px rgba(255,110,140,.12), 0 0 20px rgba(255,110,140,.25);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); }
+      50%{ transform: scale(1.35); }
+    }
+
+    h1{
+      margin: 18px 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+      position:relative;
+      z-index:2;
+    }
+
+    .subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: clamp(15px, 2.2vw, 18px);
+      line-height:1.6;
+      position:relative;
+      z-index:2;
+    }
+
+    .msg{
+      margin-top: 18px;
+      display:grid;
+      gap: 10px;
+      position:relative;
+      z-index:2;
+    }
+
+    .line{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .icon{
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(120,210,255,.22), rgba(220,120,255,.18));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+
+    .line strong{
+      display:block;
+      font-size: 14px;
+      letter-spacing:.2px;
+      margin-bottom: 2px;
+    }
+    .line span{
+      display:block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.45;
+    }
+
+    .actions{
+      margin-top: 22px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    a.btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      text-decoration:none;
+      color: var(--txt);
+      font-weight: 700;
+      letter-spacing: .2px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(120,210,255,.18), rgba(220,120,255,.16));
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    a.btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 24px 70px rgba(0,0,0,.45);
+    }
+
+    a.btn::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(240px 180px at 20% 20%, rgba(255,255,255,.16), transparent 60%);
+      opacity:.0;
+      transition: opacity .25s ease;
+      pointer-events:none;
+    }
+    a.btn:hover::after{ opacity:1; }
+
+    .mini{
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.20);
+      background: rgba(255,255,255,.04);
+    }
+
+    .footer{
+      margin-top: 18px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      position:relative;
+      z-index:2;
+    }
+
+    /* “loucuragens” */
+    .glitch{
+      position:relative;
+      display:inline-block;
+      text-shadow: 0 0 16px rgba(120,210,255,.20);
+      animation: glitch 5.5s infinite;
+    }
+    @keyframes glitch{
+      0%, 100%{ transform: translate(0); filter:hue-rotate(0deg); }
+      92%{ transform: translate(0); }
+      93%{ transform: translate(1px,-1px); filter:hue-rotate(18deg); }
+      94%{ transform: translate(-1px,1px); }
+      95%{ transform: translate(0); filter:hue-rotate(0deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none !important; transition:none !important; }
+      .grid{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid" aria-hidden="true"></div>
+
+  <div class="particles" aria-hidden="true">
+    <div class="p" style="left:10%; top:70%; animation-delay:.2s;"></div>
+    <div class="p" style="left:18%; top:28%; animation-delay:1.0s;"></div>
+    <div class="p" style="left:34%; top:62%; animation-delay:.6s;"></div>
+    <div class="p" style="left:48%; top:22%; animation-delay:1.4s;"></div>
+    <div class="p" style="left:60%; top:78%; animation-delay:.9s;"></div>
+    <div class="p" style="left:72%; top:35%; animation-delay:1.2s;"></div>
+    <div class="p" style="left:84%; top:66%; animation-delay:.4s;"></div>
+    <div class="p" style="left:92%; top:18%; animation-delay:1.6s;"></div>
+  </div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Aviso de site offline">
+      <div class="shine" aria-hidden="true"></div>
+
+      <div class="top">
+        <div class="badge">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Sistema em pausa • manutenção / configuração</span>
+        </div>
+
+        <div class="mini">
+          <span aria-hidden="true">⚡</span>
+          <span>Não é erro seu — é ajuste técnico</span>
+        </div>
+      </div>
+
+      <h1>
+        Este site está <span class="glitch">offline</span>.
+      </h1>
+
+      <p class="subtitle">
+        Fale com seu administrador para reativar o serviço e garantir que tudo volte ao ar com estabilidade.
+      </p>
+
+      <div class="msg">
+        <div class="line">
+          <div class="icon" aria-hidden="true">🛠️</div>
+          <div>
+            <strong>Recado rápido</strong>
+            <span>Este domínio está temporariamente indisponível.</span>
+          </div>
+        </div>
+
+        <div class="line">
+          <div class="icon" aria-hidden="true">📡</div>
+          <div>
+            <strong>Próximo passo</strong>
+            <span>Entre em contato com o administrador responsável para normalizar DNS, hospedagem e certificados.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="https://empresarialweb.com.br" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">🚀</span>
+          <span>Ir para EmpresarialWeb.com.br</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="footer">
+        <span>© <span id="y"></span> • Mensagem automática</span>
+        <span>Status: offline controlado</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
